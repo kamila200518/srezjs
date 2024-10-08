@@ -99,8 +99,6 @@ tabButtons.forEach(function (button, index) {
     });
 });
 
-const modal = document.getElementById("phoneModal");
-const span = document.getElementsByClassName("close")[0];
 
 function showModal() {
     modal.style.display = "block";
@@ -115,34 +113,15 @@ window.onclick = function(event) {
     }
 }
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            showModal();
-            observer.unobserve(entry.target);
+
+    window.addEventListener('scroll', function() {
+        const targetBlock = document.querySelector('.faq');
+        const phoneNumber = document.querySelector('.phone-number');
+        
+        const blockPosition = targetBlock.getBoundingClientRect().top;
+
+        // Проверяем, если блок достиг верхней части окна
+        if (blockPosition <= window.innerHeight) {
+            phoneNumber.style.display = 'block'; // Показываем номер телефона
         }
     });
-}, {
-    threshold: 0.5 
-});
-
-const target = document.getElementById('block3');
-observer.observe(target);
-
- 
-let observer = new IntersectionObserver( 
-    (entries) => { 
-        entries.forEach((entry) => { 
-            if (entry.isIntersecting) { 
-                phone.classList.add("show"); 
-            } else { 
-                phone.classList.remove("show"); 
-            } 
-        }); 
-    }, 
-    { 
-        threshold: 0.1, 
-    } 
-); 
- 
-observer.observe(faqBlock);
